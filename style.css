@@ -33,7 +33,7 @@ main {
     justify-content: center;
 }
 #vitrine {
-    min-width: 75px;
+    min-width: 75%;
 }
 .cards {
     display: flex;
