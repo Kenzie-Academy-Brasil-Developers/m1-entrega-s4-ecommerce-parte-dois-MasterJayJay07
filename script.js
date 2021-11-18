@@ -10,48 +10,94 @@ const cards= document.createElement("ul")
 cards.classList.add("cards")
 vitrine.appendChild(cards)
 const filtroHeader = document.getElementsByClassName("filtroNav")
+const listaCarrinho = document.getElementById("boxCarrinho")
+const botaoPesquisar = document.getElementById("botaoPesquisar")
+const input = document.getElementById("item")
+let listaDeProdutos = []
+
+//função que filtra os elementos
+function filtrar(indice) {
+    let retorno = []
+    for (let i=0; i<listaDeProdutos.length; i++){
+        if(indice!==i){
+            retorno.push(listaDeProdutos[i])
+        }
+    }
+    listaDeProdutos = retorno
+    showItens(listaDeProdutos)
+}
+//função mostrar objetos
+function showItens(listaDeProdutos) {
+    listaCarrinho.innerHTML = ""
+    for (let i = 0; i < listaDeProdutos.length; i++) {
+        let currentIten = listaDeProdutos[i]
+        //criador de tags
+        const li = document.createElement("li")
+        const li2 = document.createElement("li")
+        const img = document.createElement("img")
+        const h6 = document.createElement("h6")
+        const p = document.createElement("p")
+        const buttonRemove = document.createElement("button")
+        //classes adicionadas
+        li.classList.add("itensRow")
+        li2.classList.add("itensColumn")
+        //conteúdo das tags
+        img.src = currentIten.imagem
+        h6.innerText = currentIten.nome
+        p.innerText = currentIten.preco
+        buttonRemove.innerText = "remover item"
+        //conteúdos adicionados nas li
+        li.appendChild(img)
+        li2.appendChild(h6)
+        li2.appendChild(p)
+        li.appendChild(li2)
+        buttonRemove.addEventListener("click", function() {
+            return filtrar(i)
+        })
+        li2.appendChild(buttonRemove)
+        listaCarrinho.appendChild(li)
+    }
+}
+
+//função adicionar ao carrinho
+function adicionarAoCarrinho(produto){
+    listaDeProdutos.push(produto)
+    showItens(listaDeProdutos)
+    console.log(produto)
+}
 
 //loop que está criando os produtos em tela da const produtos
 for (let i=0; i<produtos.length; i++){
-    let cardLi = document.createElement("li")
-    cardLi.classList.add("cardProdutos")
+    let currentProduct = produtos[i]
+    //pega conteúdo do objeto produtos//
+    let {imagem, classe, nome, descricao, preco, adc}=currentProduct
+    //cria as tags dos elementos
+    const cardLi = document.createElement("li")
+    const img = document.createElement("img")
+    const h3 = document.createElement("h3")
+    const h4 = document.createElement("h4")
+    const paragrafo = document.createElement("p")
+    const h5 = document.createElement("h5")
+    const botaoAdcCarrinho = document.createElement("button")
+    //cria o conteúdo de texto ou imagem para as tags
+    img.src = imagem
+    h3.innerText = classe
+    h4.innerText = nome
+    paragrafo.innerText = descricao
+    h5.innerText = preco
+    botaoAdcCarrinho.innerText = adc
+    botaoAdcCarrinho.addEventListener("click", ()=>adicionarAoCarrinho(currentProduct))
+    //adiciona os elementos/tags no elemento pai
+    cardLi.appendChild(img)
+    cardLi.appendChild(h3)
+    cardLi.appendChild(h4)
+    cardLi.appendChild(paragrafo)
+    cardLi.appendChild(h5)
+    cardLi.appendChild(botaoAdcCarrinho)
     cards.appendChild(cardLi)
-    //criar imagem item//
-    let novaImagem = produtos[i].imagem
-    let criarImagem = document.createElement("img")
-    cardLi.appendChild(criarImagem)
-    criarImagem.src = novaImagem
-    //criar classe item//
-    let novaClasse = produtos[i].classe
-    let criarh3 = document.createElement("h3")
-    cardLi.appendChild(criarh3)
-    let textoh3 = document.createTextNode(novaClasse)
-    criarh3.appendChild(textoh3)
-    //criar nome do item//
-    let novoNome = produtos[i].nome
-    let criarh4 = document.createElement("h4")
-    cardLi.appendChild(criarh4)
-    let textoh4 = document.createTextNode(novoNome)
-    criarh4.appendChild(textoh4)
-    //criar descrição do item//
-    let novaDescricao = produtos[i].descricao
-    let criarParagrafo = document.createElement("p")
-    cardLi.appendChild(criarParagrafo)
-    let textoParagrafo = document.createTextNode(novaDescricao)
-    criarParagrafo.appendChild(textoParagrafo)
-    //criar preço do item //
-    let novoPreco = produtos[i].preco
-    let criarParagrafoPreco = document.createElement("h5")
-    cardLi.appendChild(criarParagrafoPreco)
-    let textoParagrafoPreco = document.createTextNode(novoPreco)
-    criarParagrafoPreco.appendChild(textoParagrafoPreco)
-    //criar tag adc ao carrinho//
-    let novoBotaoAdc = produtos[i].adc
-    let criarBotaoAdcCarrinho = document.createElement("button")
-    criarBotaoAdcCarrinho.classList.add("botaoAdcCarrinho")
-    cardLi.appendChild(criarBotaoAdcCarrinho)
-    let textobotaoAdcCarrinho = document.createTextNode(novoBotaoAdc)
-    criarBotaoAdcCarrinho.appendChild(textobotaoAdcCarrinho)
+    //adicionar classes em alguns elementos 
+    botaoAdcCarrinho.classList.add("botaoAdcCarrinho")
+    cardLi.classList.add("cardProdutos")
 }
 
 //função que filtra o nav pelo clique//
@@ -92,33 +138,18 @@ filtroHeader[3].addEventListener("click", function(){
     }
 })
 
-//botao adicionar ao carrinho//
-const botaoAdcCarrinho = document.getElementsByClassName("botaoAdcCarrinho")
-const boxCarrinho = document.getElementById("boxCarrinho")
-for (let i=0; i<botaoAdcCarrinho.length; i++){
-    botaoAdcCarrinho[i].addEventListener("click", function(){
-        let newLi = document.createElement("li")
-        boxCarrinho.appendChild(newLi)
-        let newImg = document.createElement("img")
-        newImg.src = produtos[i].imagem
-        newLi.appendChild(newImg)
-        let newName = document.createElement("h5")
-        newName.innerHTML = produtos[i].nome
-        newLi.appendChild(newName)
-        let newPrice = document.createElement("h6")
-        newPrice.innerHTML = produtos[i].preco
-        newLi.appendChild(newPrice)
-        let newButtonRemove = document.createElement("button")
-        newButtonRemove.innerHTML = "remover produto"
-        newButtonRemove.classList.add("botaoRemover")
-        newLi.appendChild(newButtonRemove)
-    })
-}
-const listaCarrinho = document.getElementsByClassName("listaCarrinho")
-const botaoRemover = document.getElementsByClassName("botaoRemover")
-
-for (let i=0; i<botaoRemover.length; i++){
-    botaoRemover[i].addEventListener("click", function(){
-    console.log("tá osso")
-    })
-}
+//função que filtra pelo nome
+botaoPesquisar.addEventListener("click", function(){
+    const inputValue = input.value.toLocaleLowerCase()
+    for(let i=0; i<produtos.length; i++){
+        cardProdutos[i].classList.remove("sumir")
+    }
+    for (let i=0; i<produtos.length; i++){
+        let currentItem = produtos[i].nome.toLocaleLowerCase()
+        if(currentItem.includes(inputValue)){
+        }
+        else {
+            cardProdutos[i].classList.add("sumir")
+        }
+    }
+})

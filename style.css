@@ -32,6 +32,9 @@ main {
     display: flex;
     justify-content: center;
 }
+#vitrine {
+    min-width: 75px;
+}
 .cards {
     display: flex;
     justify-content: space-evenly;
@@ -44,13 +47,14 @@ main {
     height: 408px;
     border: 2px solid #F5F5F5;
     box-sizing: border-box;
+    min-width: 30%;
 }
 .cards li:hover {
     transform: scale(1.03);
 }
 .cards img {
-    width: 191px;
-    height: 180px;
+    width: 100%;
+    height: 200px;
 }
 .cards h3 {
     background-color: #2E245E;
@@ -122,8 +126,23 @@ main {
     font-size: 14px;
 }
 .boxCarrinho img {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 80px;
+}
+.itensRow {
+    display: flex;
+    margin: 10px 0;
+}
+.itensRow p {
+    margin: 5px 0;
+    color: #2E245E;
+    font-weight: bold;
+}
+.itensColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin: 0 6px;
 }
 .sumir {
     display: none;
