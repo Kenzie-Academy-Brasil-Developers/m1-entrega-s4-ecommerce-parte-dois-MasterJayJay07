@@ -137,6 +137,20 @@ main {
     margin: 5px 0;
     color: #2E245E;
     font-weight: bold;
+    font-size: 1.12rem;
+    letter-spacing: 2px;
+}
+.itensRow button {
+    border: none;
+    background-color: #DC143C;
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 3px;
+}
+.itensRow button:hover {
+    background-color: #FF0000;
+    cursor: pointer;
+    
 }
 .itensColumn {
     display: flex;
