@@ -33,22 +33,27 @@ main {
     justify-content: center;
 }
 #vitrine {
-    min-width: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 60%;
 }
 .cards {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
+    max-width: 610px;
 }
 .cards li {
     list-style: none;
-    width: 195px;
-    height: 408px;
     border: 2px solid #F5F5F5;
     box-sizing: border-box;
+    max-width: 155px;
+    min-height: 445px;
     min-width: 30%;
 }
+
 .cards li:hover {
     transform: scale(1.03);
 }
@@ -164,7 +169,6 @@ main {
 
 @media(min-width: 800px){
     #vitrine {
-        max-width: 755px;
         margin-top: 8px;
     }
     .boxPesquisa input {
@@ -174,10 +178,14 @@ main {
     .carrinhoCompras h4 {
         width: 270px;
     }
+    .card li {
+        max-width: 31%;
+        min-width: 30%;
+    }
 }
-@media(max-width: 799px){
-    .boxPesquisa {
-        flex-direction: column;
+@media(min-width: 1500px){
+    .cards {
+        max-width: 930px;
     }
 }
 @media(max-width: 426px){
